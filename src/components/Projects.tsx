@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { ExternalLink, Github, ArrowRight, Star, Eye, GitFork, Calendar, Code2, Sparkles } from 'lucide-react';
 import gsap from 'gsap';
-import { Tilt } from 'react-tilt';
 import {
   SiReact, SiTypescript, SiTailwindcss, SiSupabase, SiJavascript,
   SiCss3, SiHtml5, SiNodedotjs, SiPython, SiGit, SiSolana
@@ -190,13 +189,43 @@ const Projects: React.FC = () => {
 
                 {/* Project Visual */}
                 <div className={`lg:col-span-7 ${index % 2 === 1 ? 'lg:col-start-6' : ''}`}>
-                  <Tilt
-                    options={{
-                      max: 15,
-                      scale: 1.02,
-                      speed: 1000,
-                      glare: true,
-                      "max-glare": 0.3,
+                  <div
+                    className="tilt-container"
+                    onMouseEnter={(e) => {
+                      const card = e.currentTarget;
+                      gsap.to(card, {
+                        duration: 0.3,
+                        scale: 1.02,
+                        ease: "power2.out"
+                      });
+                    }}
+                    onMouseLeave={(e) => {
+                      const card = e.currentTarget;
+                      gsap.to(card, {
+                        duration: 0.5,
+                        scale: 1,
+                        rotationX: 0,
+                        rotationY: 0,
+                        ease: "power2.out"
+                      });
+                    }}
+                    onMouseMove={(e) => {
+                      const card = e.currentTarget;
+                      const rect = card.getBoundingClientRect();
+                      const x = e.clientX - rect.left;
+                      const y = e.clientY - rect.top;
+                      const centerX = rect.width / 2;
+                      const centerY = rect.height / 2;
+                      const rotateX = (y - centerY) / centerY * -15;
+                      const rotateY = (x - centerX) / centerX * 15;
+                      
+                      gsap.to(card, {
+                        duration: 0.3,
+                        rotationX: rotateX,
+                        rotationY: rotateY,
+                        transformPerspective: 1000,
+                        ease: "power2.out"
+                      });
                     }}
                   >
                     <div className="relative group overflow-hidden rounded-2xl">
@@ -273,7 +302,7 @@ const Projects: React.FC = () => {
                         </div>
                       </div>
                     </div>
-                  </Tilt>
+                  </div>
                 </div>
 
                 {/* Project Details */}
