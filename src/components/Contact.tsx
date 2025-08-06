@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Mail, Linkedin, Github, Send } from 'lucide-react';
+import { Mail, Linkedin, Github, Send, CheckCircle } from 'lucide-react';
 import gsap from 'gsap';
 
 const Contact: React.FC = () => {
@@ -12,6 +12,7 @@ const Contact: React.FC = () => {
     subject: '',
     message: ''
   });
+  const [showSuccess, setShowSuccess] = useState(false);
 
   useEffect(() => {
     const tl = gsap.timeline({
@@ -58,8 +59,20 @@ const Contact: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission here (e.g., send to backend or email service)
-    console.log('Form submitted:', formData);
+    
+    // Create mailto link with form data
+    const subject = encodeURIComponent(`Portfolio Contact: ${formData.subject}`);
+    const body = encodeURIComponent(
+      `Hello Naman,\n\nI found your portfolio and would like to get in touch.\n\nName: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}\n\nBest regards,\n${formData.name}`
+    );
+    const mailtoLink = `mailto:namansingh4680@gmail.com?subject=${subject}&body=${body}`;
+    
+    // Open user's email client
+    window.open(mailtoLink, '_blank');
+    
+    // Show success message
+    setShowSuccess(true);
+    
     // Reset form
     setFormData({
       name: '',
@@ -67,8 +80,11 @@ const Contact: React.FC = () => {
       subject: '',
       message: ''
     });
-    // Show success message
-    alert('Thank you for your message! I\'ll get back to you soon.');
+    
+    // Hide success message after 5 seconds
+    setTimeout(() => {
+      setShowSuccess(false);
+    }, 5000);
   };
 
   const contactInfo = [
@@ -226,9 +242,19 @@ const Contact: React.FC = () => {
                   />
                 </div>
 
+                {/* Success Message */}
+                {showSuccess && (
+                  <div className="p-4 rounded-lg flex items-center gap-3 bg-green-100 dark:bg-green-900/30 border border-green-300 dark:border-green-700">
+                    <CheckCircle className="text-green-600 dark:text-green-400" size={20} />
+                    <p className="text-sm text-green-700 dark:text-green-300">
+                      Opening your email client with a pre-filled message. Please send it to complete your contact request!
+                    </p>
+                  </div>
+                )}
+
                 <button
                   type="submit"
-                  className="w-full btn-primary flex items-center justify-center gap-2"
+                  className="w-full btn-primary flex items-center justify-center gap-2 hover:scale-105 transition-all duration-300"
                 >
                   <Send size={20} />
                   Send Message
