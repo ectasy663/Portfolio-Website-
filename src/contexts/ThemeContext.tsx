@@ -58,28 +58,19 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
     // Disable all CSS transitions temporarily to prevent conflicts
     const disableTransitions = () => {
       root.classList.add('theme-changing');
-      // Don't pause GSAP during scroll animations - only pause non-scroll animations
+      // Don't interfere with any scroll-related animations
+      // Only pause non-scroll GSAP animations
       if (window.gsap) {
-        // Kill any scroll animations that might conflict
-        window.gsap.killTweensOf(window);
-        // Pause other timelines but not scroll
-        const scrollTweens = window.gsap.getTweensOf(window);
-        if (scrollTweens.length === 0) {
-          window.gsap.globalTimeline.pause();
-        }
+        // Kill theme-related animations but preserve scroll animations
+        const elementsToKill = document.querySelectorAll('[data-gsap-theme]');
+        elementsToKill.forEach(el => window.gsap!.killTweensOf(el));
       }
     };
 
     // Re-enable transitions after theme change
     const enableTransitions = () => {
       root.classList.remove('theme-changing');
-      // Resume GSAP animations only if not scrolling
-      if (window.gsap) {
-        const scrollTweens = window.gsap.getTweensOf(window);
-        if (scrollTweens.length === 0) {
-          window.gsap.globalTimeline.resume();
-        }
-      }
+      // No need to resume GSAP - let components handle their own animations
     };
 
     // Use requestAnimationFrame for smoother transitions
@@ -104,7 +95,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
       // Re-enable transitions after a brief delay
       setTimeout(() => {
         enableTransitions();
-      }, 50);
+      }, 100); // Increased delay to prevent conflicts
     });
   }, [theme]);
 

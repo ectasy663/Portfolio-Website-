@@ -1,7 +1,7 @@
 import { useEffect, useState, lazy, Suspense } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
+// Removed ScrollToPlugin to prevent navigation conflicts
 import { ThemeProvider } from './contexts/ThemeContext';
 import Hero from './components/Hero_clean.tsx';
 import Navigation from './components/Navigation.tsx';
@@ -15,8 +15,8 @@ const Projects = lazy(() => import('./components/Projects.tsx'));
 const Achievements = lazy(() => import('./components/Achievements.tsx'));
 const Contact = lazy(() => import('./components/Contact.tsx'));
 
-// Register GSAP plugins
-gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+// Register GSAP plugins (removed ScrollToPlugin to prevent conflicts)
+gsap.registerPlugin(ScrollTrigger);
 
 // Loading component for Suspense fallback
 const LoadingSpinner = () => (
@@ -32,7 +32,7 @@ function App() {
     // Make GSAP available globally for theme context
     window.gsap = gsap;
     
-    // Initialize GSAP animations
+    // Initialize GSAP animations - NO navbar interference
     gsap.set("body", { visibility: "visible" });
     document.body.classList.add('gsap-loaded');
     
@@ -48,7 +48,7 @@ function App() {
       delay: 0.5
     });
     
-    // Create scroll progress indicator
+    // Create scroll progress indicator with optimized settings
     gsap.to(".scroll-progress", {
       width: "100%",
       ease: "none",
@@ -56,39 +56,12 @@ function App() {
         trigger: "body",
         start: "top top",
         end: "bottom bottom",
-        scrub: 0.3
+        scrub: 0.5,
+        invalidateOnRefresh: true
       }
     });
     
-    // Smooth scrolling for navigation links with GSAP
-    const navLinks = document.querySelectorAll('a[href^="#"]');
-    navLinks.forEach(link => {
-      link.addEventListener('click', (e: Event) => {
-        e.preventDefault();
-        const href = (link as HTMLAnchorElement).getAttribute('href');
-        
-        if (href) {
-          // Kill any existing scroll animations to prevent conflicts
-          gsap.killTweensOf(window);
-          gsap.killTweensOf("body");
-          
-          // Use GSAP ScrollToPlugin for smoother scrolling
-          gsap.to(window, {
-            duration: 1, 
-            scrollTo: { y: href, offsetY: 80 },
-            ease: "power1.inOut",
-            overwrite: "auto",
-            // Prevent layout shifts during scroll
-            onStart: () => {
-              document.body.style.pointerEvents = "none";
-            },
-            onComplete: () => {
-              document.body.style.pointerEvents = "auto";
-            }
-          });
-        }
-      });
-    });
+    // Note: Navigation scrolling is handled in Navigation.tsx to avoid conflicts
 
     // Refresh ScrollTrigger on load
     ScrollTrigger.refresh();
@@ -109,12 +82,12 @@ function App() {
         </div>
         
         {/* Scroll progress indicator */}
-        <div className="fixed top-0 left-0 w-full h-1 z-[90] bg-gray-200 dark:bg-dark-800">
+  <div className="fixed top-0 left-0 w-full h-1 z-[1100] bg-gray-200 dark:bg-dark-800">
           <div className="scroll-progress h-full bg-gradient-to-r from-primary-400 to-primary-600 w-0"></div>
         </div>
         
         <Navigation />
-        <main className="pt-16">
+        <main className="pt-20 relative z-0">
           <Hero />
           <Suspense fallback={<LoadingSpinner />}>
             <About />

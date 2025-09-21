@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { FileText, Download } from 'lucide-react';
 
 interface ResumeButtonProps {
@@ -12,6 +12,7 @@ const ResumeButton: React.FC<ResumeButtonProps> = ({
   className = '',
   showIcon = true 
 }) => {
+  const btnRef = useRef<HTMLButtonElement>(null);
   const handleDownload = () => {
     // Create a link element for downloading the resume
     const link = document.createElement('a');
@@ -20,6 +21,14 @@ const ResumeButton: React.FC<ResumeButtonProps> = ({
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+
+    // Sparkle effect
+    const btn = btnRef.current;
+    if (!btn) return;
+    const sparkle = document.createElement('span');
+    sparkle.className = 'sparkle-burst pointer-events-none';
+    btn.appendChild(sparkle);
+    setTimeout(() => sparkle.remove(), 600);
   };
 
   const baseClasses = "group relative transition-all duration-300 will-change-transform focus:outline-none active:scale-95";
@@ -32,6 +41,7 @@ const ResumeButton: React.FC<ResumeButtonProps> = ({
 
   return (
     <button
+      ref={btnRef}
       onClick={handleDownload}
       className={`${baseClasses} ${variantClasses[variant]} ${className}`}
       title="Download Resume"

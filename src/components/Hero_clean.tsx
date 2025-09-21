@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useCallback } from 'react';
 import { ArrowDown, Github, Linkedin, Mail, Code, Zap } from 'lucide-react';
 import gsap from 'gsap';
+import { scrollToId } from '../utils/scroll';
 import Typewriter from 'typewriter-effect';
 import heroVideo from '../assets/videos/Video 1 AI and Web.mp4';
 import ResumeButton from './ResumeButton';
@@ -90,57 +91,11 @@ const Hero: React.FC = () => {
   }, []);
 
   const scrollToProjects = useCallback(() => {
-    // Kill any existing scroll animations and GSAP tweens to prevent conflicts
-    gsap.killTweensOf(window);
-    gsap.killTweensOf("body");
-
-    const projectsSection = document.querySelector("#projects");
-    if (projectsSection) {
-      // Use a smoother, more controlled scroll animation
-      gsap.to(window, {
-        duration: 1,
-        scrollTo: {
-          y: "#projects",
-          offsetY: 80
-        },
-        ease: "power1.inOut",
-        overwrite: "auto",
-        // Prevent layout shifts during animation
-        onStart: () => {
-          document.body.style.overflow = "hidden";
-        },
-        onComplete: () => {
-          document.body.style.overflow = "auto";
-        }
-      });
-    }
+    scrollToId('#projects', 80);
   }, []);
 
   const scrollToContact = useCallback(() => {
-    // Kill any existing scroll animations and GSAP tweens to prevent conflicts
-    gsap.killTweensOf(window);
-    gsap.killTweensOf("body");
-
-    const contactSection = document.querySelector("#contact");
-    if (contactSection) {
-      // Use a smoother, more controlled scroll animation
-      gsap.to(window, {
-        duration: 1,
-        scrollTo: {
-          y: "#contact",
-          offsetY: 80
-        },
-        ease: "power1.inOut",
-        overwrite: "auto",
-        // Prevent layout shifts during animation
-        onStart: () => {
-          document.body.style.overflow = "hidden";
-        },
-        onComplete: () => {
-          document.body.style.overflow = "auto";
-        }
-      });
-    }
+    scrollToId('#contact', 80);
   }, []);
 
   const techStack = [

@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { ExternalLink, Github, ArrowRight, Star, Eye, GitFork, Calendar, Code2, Sparkles } from 'lucide-react';
 import gsap from 'gsap';
+import { scrollToId } from '../utils/scroll';
 import {
   SiReact, SiTypescript, SiTailwindcss, SiSupabase, SiJavascript,
   SiCss3, SiHtml5, SiNodedotjs, SiPython, SiGit, SiSolana
@@ -402,15 +403,7 @@ const Projects: React.FC = () => {
               Have an exciting project in mind? Let's collaborate and create innovative solutions that make a difference.
             </p>
             <button
-              onClick={() => {
-                // Kill any existing scroll animations to prevent conflicts
-                gsap.killTweensOf(window);
-                gsap.to(window, {
-                  duration: 0.8,
-                  scrollTo: { y: "#contact", offsetY: 80 },
-                  ease: "power2.inOut"
-                });
-              }}
+              onClick={() => scrollToId('#contact', 80)}
               className="group inline-flex items-center space-x-2 bg-gradient-to-r from-cyan-500 to-purple-600 text-white px-8 py-4 rounded-xl hover:shadow-neon-blue/50 hover:scale-105 transition-all duration-300"
             >
               <span className="font-semibold">Start a Project</span>

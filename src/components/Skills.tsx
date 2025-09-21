@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import {
   SiReact, SiTypescript, SiJavascript, SiPython, SiCplusplus,
   SiHtml5, SiCss3, SiTailwindcss, SiGit, SiGithub, SiDocker, SiFigma,
@@ -19,6 +20,7 @@ const Skills: React.FC = () => {
   const floatingRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: sectionRef.current,
@@ -82,6 +84,23 @@ const Skills: React.FC = () => {
         repeat: -1,
         yoyo: true,
         stagger: 0.3
+      });
+    }
+
+    // Parallax background overlays
+    if (sectionRef.current) {
+      const overlays = sectionRef.current.querySelectorAll('.skills-overlay');
+      overlays.forEach((el, i) => {
+        gsap.to(el, {
+          y: i % 2 === 0 ? -50 : -30,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: sectionRef.current!,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: true
+          }
+        });
       });
     }
 
@@ -152,8 +171,8 @@ const Skills: React.FC = () => {
 
       {/* Dynamic gradient background overlay */}
       <div className="absolute inset-0 z-20 opacity-10 dark:opacity-30 transition-opacity duration-300">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-r from-cyan-500/20 to-pink-500/20 rounded-full blur-3xl"></div>
+        <div className="skills-overlay absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-full blur-3xl"></div>
+        <div className="skills-overlay absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-r from-cyan-500/20 to-pink-500/20 rounded-full blur-3xl"></div>
       </div>
 
       {/* Background floating icons */}

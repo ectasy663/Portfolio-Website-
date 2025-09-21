@@ -47,10 +47,10 @@
 
 @layer base {
   html {
-    scroll-behavior: auto;
-    /* Disable CSS smooth scroll to prevent conflicts with GSAP */
-    scroll-padding-top: 80px;
-    /* Account for fixed navbar */
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px; /* Account for fixed navbar */
+    /* Prevent any scroll-related layout issues */
+    overflow-x: hidden;
   }
 
   /* Dark theme (default) with much darker background */
@@ -66,9 +66,9 @@
     text-rendering: optimizeLegibility;
     letter-spacing: -0.01em;
     visibility: hidden;
-    /* Prevent layout shifts during scroll animations */
-    transform: translateZ(0);
-    backface-visibility: hidden;
+    /* Stable scrolling performance */
+    overscroll-behavior: none;
+    scroll-behavior: smooth;
   }
 
   /* Light theme */
@@ -87,9 +87,9 @@
     animation-play-state: paused !important;
   }
 
-  /* Default transitions for non-theme-changing states */
+  /* Default transitions for non-theme-changing states - optimized for performance */
   html:not(.theme-changing) * {
-    transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
+    transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow;
     transition-duration: 0.2s;
     transition-timing-function: ease-out;
   }
@@ -101,6 +101,10 @@
 }
 
 @layer components {
+  /* Ensure anchor targets account for navbar height */
+  section[id] {
+    scroll-margin-top: 80px;
+  }
 
   /* Enhanced Typography Classes */
   .text-display-xl {
@@ -385,6 +389,20 @@
     transition: none !important;
   }
 
+  /* ULTIMATE NAVBAR PROTECTION - Cannot be overridden */
+  nav[style*="position: fixed"] {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    z-index: 999999 !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    display: block !important;
+    transform: none !important;
+  }
+
 
 .section-padding {
   @apply py-20 px-4 sm:px-6 lg:px-8;
@@ -482,4 +500,28 @@
   100% {
     transform: translate(24px, 0);
   }
+}
+
+/* Simple navbar fix - just the basics */
+.simple-navbar {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  z-index: 1200 !important;
+  height: 5rem !important;
+  backdrop-filter: blur(12px) !important;
+}
+
+.simple-navbar.light-theme {
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  border-bottom: 1px solid rgba(229, 231, 235, 0.5) !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
+}
+
+.simple-navbar.dark-theme {
+  background-color: rgba(2, 6, 23, 0.95) !important;
+  border-bottom: 1px solid rgba(55, 65, 81, 0.5) !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
 }

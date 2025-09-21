@@ -1,9 +1,49 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import ThemeToggleButton from './ThemeToggleButton';
 
 const Navigation: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isDark, setIsDark] = useState(false);
+  const [active, setActive] = useState<string>('home');
+
+  // Simple theme detection only
+  useEffect(() => {
+    const checkTheme = () => {
+      setIsDark(document.documentElement.classList.contains('dark'));
+    };
+    
+    checkTheme();
+    const observer = new MutationObserver(checkTheme);
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+    
+    return () => observer.disconnect();
+  }, []);
+
+  // Active link highlighting via IntersectionObserver
+  useEffect(() => {
+    // Initialize from URL hash if present
+    const currentHash = window.location.hash.replace('#', '');
+    if (currentHash) setActive(currentHash);
+
+    const ids = ['home','about','skills','experience','projects','achievements','contact'];
+    const sections = ids
+      .map(id => document.getElementById(id))
+      .filter(Boolean) as HTMLElement[];
+    if (!sections.length) return;
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.getAttribute('id');
+          if (id) setActive(id);
+        }
+      });
+    }, { rootMargin: '-40% 0px -55% 0px', threshold: 0.01 });
+
+    sections.forEach(sec => observer.observe(sec));
+    return () => observer.disconnect();
+  }, []);
 
   const navItems = [
     { href: '#home', label: 'Home' },
@@ -17,16 +57,35 @@ const Navigation: React.FC = () => {
 
   const handleNavClick = (href: string) => {
     setIsOpen(false);
-    const target = document.querySelector(href);
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth' });
+    // Optimistically set active based on clicked link
+    const idFromHref = href.startsWith('#') ? href.slice(1) : href;
+    setActive(idFromHref);
+    // sync the hash (without jumping)
+    if (history.replaceState) {
+      history.replaceState(null, '', `#${idFromHref}`);
+    } else {
+      window.location.hash = idFromHref;
     }
+    
+    // Find the target element
+    const target = document.querySelector(href);
+    if (!target) return;
+    
+    // Simple scroll with offset for navbar
+    const navbarHeight = 80;
+    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navbarHeight;
+    
+    // Use the simplest scroll method possible
+    window.scrollTo({
+      top: targetPosition,
+      behavior: 'smooth'
+    });
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-[100] bg-white/95 dark:bg-slate-950/95 backdrop-blur-md shadow-lg border-b border-gray-200/50 dark:border-gray-800/50 transition-colors duration-300">
+    <nav className={`simple-navbar ${isDark ? 'dark-theme' : 'light-theme'}`}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+  <div className="flex justify-between items-center h-20">
           {/* Logo */}
           <div className="flex-shrink-0">
             <a
@@ -35,7 +94,7 @@ const Navigation: React.FC = () => {
                 e.preventDefault();
                 handleNavClick('#home');
               }}
-              className="text-heading-md font-display gradient-text"
+              className="text-heading-md font-display gradient-text focus:outline-none focus-visible:outline-none focus:ring-0"
             >
               NS
             </a>
@@ -52,9 +111,10 @@ const Navigation: React.FC = () => {
                     e.preventDefault();
                     handleNavClick(item.href);
                   }}
-                  className="text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 px-3 py-2 text-body-sm font-heading font-medium transition-colors duration-200"
+                  className={`relative px-3 py-2 text-body-sm font-heading font-medium transition-colors duration-200 focus:outline-none focus-visible:outline-none focus:ring-0 ${active === item.href.slice(1) ? 'text-primary-600 dark:text-primary-400' : 'text-gray-600 dark:text-gray-300'}`}
                 >
                   {item.label}
+                  <span className={`absolute left-3 right-3 -bottom-0.5 h-0.5 rounded-full transition-all duration-300 ${active === item.href.slice(1) ? 'bg-primary-500 opacity-100' : 'opacity-0'}`}></span>
                 </a>
               ))}
             </div>
@@ -87,7 +147,7 @@ const Navigation: React.FC = () => {
                     e.preventDefault();
                     handleNavClick(item.href);
                   }}
-                  className="text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 block px-3 py-2 text-body-md font-heading font-medium transition-colors duration-200"
+                  className={`block px-3 py-2 text-body-md font-heading font-medium transition-colors duration-200 focus:outline-none focus-visible:outline-none focus:ring-0 ${active === item.href.slice(1) ? 'text-primary-600 dark:text-primary-400' : 'text-gray-600 dark:text-gray-300'} `}
                 >
                   {item.label}
                 </a>

@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { Brain, Code, Users } from 'lucide-react';
 import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useInView } from 'react-intersection-observer';
 import { useGSAPAnimation } from '../hooks/useAnimation';
 import metaverseVideo from '../assets/videos/Portfolio Metaverse.mp4';
@@ -27,6 +28,8 @@ const About: React.FC = () => {
   });
 
   useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+
     // GSAP animation for additional effects
     if (strengthsInView && timelineRef.current) {
       // Clear any existing timeline
@@ -49,6 +52,23 @@ const About: React.FC = () => {
           ease: "power3.out"
         }
       );
+    }
+
+    // Parallax background overlays
+    if (sectionRef.current) {
+      const overlayBubbles = sectionRef.current.querySelectorAll('.about-overlay');
+      overlayBubbles.forEach((el, i) => {
+        gsap.to(el, {
+          y: i % 2 === 0 ? -60 : -40,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: sectionRef.current!,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: true
+          }
+        });
+      });
     }
 
     return () => {
@@ -107,8 +127,8 @@ const About: React.FC = () => {
 
       {/* Dynamic gradient background overlay */}
       <div className="absolute inset-0 z-20 opacity-10 dark:opacity-30 transition-opacity duration-300">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-purple-500/20 to-blue-500/20 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-r from-cyan-500/20 to-pink-500/20 rounded-full blur-3xl"></div>
+        <div className="about-overlay absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-purple-500/20 to-blue-500/20 rounded-full blur-3xl"></div>
+        <div className="about-overlay absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-r from-cyan-500/20 to-pink-500/20 rounded-full blur-3xl"></div>
       </div>
 
       <div className="container relative z-30">
