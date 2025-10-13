@@ -5,7 +5,7 @@ import {
   SiReact, SiTypescript, SiJavascript, SiPython, SiCplusplus,
   SiHtml5, SiCss3, SiTailwindcss, SiGit, SiGithub, SiDocker, SiFigma,
   SiNodedotjs, SiPostgresql, SiSupabase,
-  SiTensorflow, SiPytorch, SiNumpy, SiPandas, SiJupyter
+  SiTensorflow, SiPytorch, SiNumpy, SiPandas, SiJupyter, SiExpo
 } from 'react-icons/si';
 import {
   FaBrain, FaCode, FaJava, FaRocket,
@@ -115,6 +115,7 @@ const Skills: React.FC = () => {
       icon: <FaDesktop className="text-3xl text-cyan-400" />,
       skills: [
         { name: "React.js", icon: <SiReact className="text-2xl text-cyan-400" />, level: 95 },
+        { name: "React Native", icon: <SiExpo className="text-2xl text-purple-400" />, level: 85 },
         { name: "TypeScript", icon: <SiTypescript className="text-2xl text-blue-400" />, level: 90 },
         { name: "JavaScript", icon: <SiJavascript className="text-2xl text-yellow-400" />, level: 92 },
         { name: "HTML5", icon: <SiHtml5 className="text-2xl text-orange-500" />, level: 95 },

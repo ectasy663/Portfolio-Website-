@@ -215,6 +215,7 @@ const Hero: React.FC = () => {
                   strings: [
                     'AI/ML Engineer 🤖',
                     'Full Stack Developer 💻',
+                    'Mobile App Developer 📱',
                     'Creative Technologist 🎨',
                     'Problem Solver 🚀'
                   ],
