@@ -275,7 +275,7 @@ const Projects: React.FC = () => {
                         </div>
 
                         {/* Hover overlay */}
-                        <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center backdrop-blur-sm">
+                        <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-all duration-500 hidden lg:flex items-center justify-center backdrop-blur-sm">
                           <div className="flex space-x-4 transform translate-y-8 group-hover:translate-y-0 transition-transform duration-300">
                             {project.liveUrl !== "#" && (
                               <a
@@ -386,6 +386,32 @@ const Projects: React.FC = () => {
                       <Eye size={16} />
                       <span className="text-sm">{project.stats.views}</span>
                     </div>
+                  </div>
+
+                  {/* Mobile Action Buttons */}
+                  <div className="flex items-center gap-4 mt-6 lg:hidden">
+                    {project.liveUrl !== "#" && (
+                      <a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center justify-center space-x-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-white px-6 py-3 rounded-xl hover:shadow-neon-blue/50 transition-all duration-300 flex-1"
+                      >
+                        <ExternalLink size={18} />
+                        <span>Live Demo</span>
+                      </a>
+                    )}
+                    {project.githubUrl !== "#" && (
+                      <a
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center justify-center space-x-2 bg-gray-100 dark:bg-slate-800 border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-white px-6 py-3 rounded-xl hover:bg-gray-200 dark:hover:bg-slate-700 transition-all duration-300 flex-1"
+                      >
+                        <Github size={18} />
+                        <span>Source</span>
+                      </a>
+                    )}
                   </div>
                 </div>
               </div>
