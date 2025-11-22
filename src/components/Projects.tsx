@@ -191,7 +191,7 @@ const Projects: React.FC = () => {
                 {/* Project Visual */}
                 <div className={`lg:col-span-7 ${index % 2 === 1 ? 'lg:col-start-6' : ''}`}>
                   <div
-                    className="tilt-container"
+                    className="tilt-container pointer-events-none lg:pointer-events-auto"
                     onMouseEnter={(e) => {
                       const card = e.currentTarget;
                       gsap.to(card, {
@@ -389,13 +389,13 @@ const Projects: React.FC = () => {
                   </div>
 
                   {/* Mobile Action Buttons */}
-                  <div className="flex items-center gap-4 mt-6 lg:hidden relative z-20">
+                  <div className="flex items-center gap-4 mt-6 lg:hidden relative z-50 pointer-events-auto">
                     {project.liveUrl !== "#" && (
                       <a
                         href={project.liveUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center justify-center space-x-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-white px-6 py-3 rounded-xl hover:shadow-neon-blue/50 transition-all duration-300 flex-1"
+                        className="flex items-center justify-center space-x-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-white px-6 py-3 rounded-xl hover:shadow-neon-blue/50 transition-all duration-300 flex-1 touch-manipulation active:scale-95"
                       >
                         <ExternalLink size={18} />
                         <span>Live Demo</span>
@@ -406,7 +406,7 @@ const Projects: React.FC = () => {
                         href={project.githubUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center justify-center space-x-2 bg-gray-100 dark:bg-slate-800 border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-white px-6 py-3 rounded-xl hover:bg-gray-200 dark:hover:bg-slate-700 transition-all duration-300 flex-1"
+                        className="flex items-center justify-center space-x-2 bg-gray-100 dark:bg-slate-800 border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-white px-6 py-3 rounded-xl hover:bg-gray-200 dark:hover:bg-slate-700 transition-all duration-300 flex-1 touch-manipulation active:scale-95"
                       >
                         <Github size={18} />
                         <span>Source</span>
