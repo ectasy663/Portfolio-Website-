@@ -183,13 +183,13 @@ const Projects: React.FC = () => {
           {projects.map((project, index) => (
             <div
               key={index}
-              className="project-card group"
+              className="project-card group relative z-10"
             >
               <div className={`grid lg:grid-cols-12 gap-8 items-center ${index % 2 === 1 ? 'lg:grid-flow-col-dense' : ''
                 }`}>
 
                 {/* Project Visual */}
-                <div className={`lg:col-span-7 ${index % 2 === 1 ? 'lg:col-start-6' : ''}`}>
+                <div className={`lg:col-span-7 ${index % 2 === 1 ? 'lg:col-start-6' : ''} relative z-10`}>
                   <div
                     className="tilt-container pointer-events-none lg:pointer-events-auto"
                     onMouseEnter={(e) => {
@@ -307,7 +307,7 @@ const Projects: React.FC = () => {
                 </div>
 
                 {/* Project Details */}
-                <div className={`lg:col-span-5 space-y-6 ${index % 2 === 1 ? 'lg:col-start-1' : ''}`}>
+                <div className={`lg:col-span-5 space-y-6 ${index % 2 === 1 ? 'lg:col-start-1' : ''} relative z-20 pointer-events-auto`}>
                   {/* Project meta */}
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-3">
