@@ -275,14 +275,14 @@ const Projects: React.FC = () => {
                         </div>
 
                         {/* Hover overlay */}
-                        <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-all duration-500 hidden lg:flex items-center justify-center backdrop-blur-sm">
+                        <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-all duration-500 hidden lg:flex items-center justify-center backdrop-blur-sm z-50">
                           <div className="flex space-x-4 transform translate-y-8 group-hover:translate-y-0 transition-transform duration-300">
                             {project.liveUrl !== "#" && (
                               <a
                                 href={project.liveUrl}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="flex items-center space-x-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-white px-6 py-3 rounded-xl hover:shadow-neon-blue/50 transition-all duration-300"
+                                className="flex items-center space-x-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-white px-6 py-3 rounded-xl hover:shadow-neon-blue/50 transition-all duration-300 hover:scale-105 active:scale-95"
                               >
                                 <ExternalLink size={18} />
                                 <span>Live Demo</span>
@@ -293,7 +293,7 @@ const Projects: React.FC = () => {
                                 href={project.githubUrl}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="flex items-center space-x-2 bg-dark-800/80 backdrop-blur-sm border border-white/20 text-white px-6 py-3 rounded-xl hover:border-white/40 transition-all duration-300"
+                                className="flex items-center space-x-2 bg-dark-800/80 backdrop-blur-sm border border-white/20 text-white px-6 py-3 rounded-xl hover:border-white/40 transition-all duration-300 hover:scale-105 active:scale-95"
                               >
                                 <Github size={18} />
                                 <span>Source</span>
@@ -388,17 +388,21 @@ const Projects: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* Mobile Action Buttons */}
-                  <div className="flex items-center gap-4 mt-6 lg:hidden relative z-50 pointer-events-auto">
+                  {/* Mobile Action Buttons - Redesigned for better touch accessibility */}
+                  <div 
+                    className="grid grid-cols-2 gap-4 mt-8 lg:hidden relative z-50"
+                    onClick={(e) => e.stopPropagation()}
+                  >
                     {project.liveUrl !== "#" && (
                       <a
                         href={project.liveUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center justify-center space-x-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-white px-6 py-3 rounded-xl hover:shadow-neon-blue/50 transition-all duration-300 flex-1 touch-manipulation active:scale-95"
+                        className="col-span-1 flex flex-col items-center justify-center gap-2 bg-gradient-to-br from-cyan-500 to-blue-600 text-white py-4 px-4 rounded-2xl shadow-lg active:scale-95 transition-transform duration-200 touch-manipulation cursor-pointer"
+                        style={{ WebkitTapHighlightColor: 'transparent' }}
                       >
-                        <ExternalLink size={18} />
-                        <span>Live Demo</span>
+                        <ExternalLink size={24} />
+                        <span className="text-sm font-bold">Live Demo</span>
                       </a>
                     )}
                     {project.githubUrl !== "#" && (
@@ -406,10 +410,11 @@ const Projects: React.FC = () => {
                         href={project.githubUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center justify-center space-x-2 bg-gray-100 dark:bg-slate-800 border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-white px-6 py-3 rounded-xl hover:bg-gray-200 dark:hover:bg-slate-700 transition-all duration-300 flex-1 touch-manipulation active:scale-95"
+                        className="col-span-1 flex flex-col items-center justify-center gap-2 bg-white dark:bg-slate-800 border-2 border-gray-100 dark:border-gray-700 text-gray-900 dark:text-white py-4 px-4 rounded-2xl shadow-lg active:scale-95 transition-transform duration-200 touch-manipulation cursor-pointer"
+                        style={{ WebkitTapHighlightColor: 'transparent' }}
                       >
-                        <Github size={18} />
-                        <span>Source</span>
+                        <Github size={24} />
+                        <span className="text-sm font-bold">Source Code</span>
                       </a>
                     )}
                   </div>
