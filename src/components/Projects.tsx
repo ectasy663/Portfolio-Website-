@@ -389,7 +389,7 @@ const Projects: React.FC = () => {
                   </div>
 
                   {/* Mobile Action Buttons */}
-                  <div className="flex items-center gap-4 mt-6 lg:hidden">
+                  <div className="flex items-center gap-4 mt-6 lg:hidden relative z-20">
                     {project.liveUrl !== "#" && (
                       <a
                         href={project.liveUrl}
