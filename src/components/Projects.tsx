@@ -283,6 +283,10 @@ const Projects: React.FC = () => {
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="flex items-center space-x-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-white px-6 py-3 rounded-xl hover:shadow-neon-blue/50 transition-all duration-300 hover:scale-105 active:scale-95"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  window.open(project.liveUrl, '_blank', 'noopener,noreferrer');
+                                }}
                               >
                                 <ExternalLink size={18} />
                                 <span>Live Demo</span>
@@ -294,6 +298,10 @@ const Projects: React.FC = () => {
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="flex items-center space-x-2 bg-dark-800/80 backdrop-blur-sm border border-white/20 text-white px-6 py-3 rounded-xl hover:border-white/40 transition-all duration-300 hover:scale-105 active:scale-95"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  window.open(project.githubUrl, '_blank', 'noopener,noreferrer');
+                                }}
                               >
                                 <Github size={18} />
                                 <span>Source</span>
@@ -406,13 +414,12 @@ const Projects: React.FC = () => {
                           WebkitUserSelect: 'none',
                           position: 'relative',
                           zIndex: 10000,
-                          minHeight: '80px'
+                          minHeight: '80px',
+                          cursor: 'pointer'
                         }}
-                        onTouchStart={(e) => {
-                          e.currentTarget.style.transform = 'scale(0.95)';
-                        }}
-                        onTouchEnd={(e) => {
-                          e.currentTarget.style.transform = 'scale(1)';
+                        onClick={(e) => {
+                          e.preventDefault();
+                          window.open(project.liveUrl, '_blank', 'noopener,noreferrer');
                         }}
                       >
                         <ExternalLink size={24} strokeWidth={2.5} />
@@ -432,13 +439,12 @@ const Projects: React.FC = () => {
                           WebkitUserSelect: 'none',
                           position: 'relative',
                           zIndex: 10000,
-                          minHeight: '80px'
+                          minHeight: '80px',
+                          cursor: 'pointer'
                         }}
-                        onTouchStart={(e) => {
-                          e.currentTarget.style.transform = 'scale(0.95)';
-                        }}
-                        onTouchEnd={(e) => {
-                          e.currentTarget.style.transform = 'scale(1)';
+                        onClick={(e) => {
+                          e.preventDefault();
+                          window.open(project.githubUrl, '_blank', 'noopener,noreferrer');
                         }}
                       >
                         <Github size={24} strokeWidth={2.5} />
