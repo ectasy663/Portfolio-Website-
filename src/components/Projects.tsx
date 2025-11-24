@@ -390,15 +390,14 @@ const Projects: React.FC = () => {
 
                   {/* Mobile Action Buttons - Redesigned for better touch accessibility */}
                   <div 
-                    className="grid grid-cols-2 gap-4 mt-8 lg:hidden relative z-50"
-                    onClick={(e) => e.stopPropagation()}
+                    className="grid grid-cols-2 gap-4 mt-8 lg:hidden relative z-50 pointer-events-auto"
                   >
                     {project.liveUrl !== "#" && (
                       <a
                         href={project.liveUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="col-span-1 flex flex-col items-center justify-center gap-2 bg-gradient-to-br from-cyan-500 to-blue-600 text-white py-4 px-4 rounded-2xl shadow-lg active:scale-95 transition-transform duration-200 touch-manipulation cursor-pointer"
+                        className="col-span-1 flex flex-col items-center justify-center gap-2 bg-gradient-to-br from-cyan-500 to-blue-600 text-white py-4 px-4 rounded-2xl shadow-lg active:scale-95 transition-transform duration-200 touch-manipulation cursor-pointer relative z-50"
                         style={{ WebkitTapHighlightColor: 'transparent' }}
                       >
                         <ExternalLink size={24} />
@@ -410,7 +409,7 @@ const Projects: React.FC = () => {
                         href={project.githubUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="col-span-1 flex flex-col items-center justify-center gap-2 bg-white dark:bg-slate-800 border-2 border-gray-100 dark:border-gray-700 text-gray-900 dark:text-white py-4 px-4 rounded-2xl shadow-lg active:scale-95 transition-transform duration-200 touch-manipulation cursor-pointer"
+                        className="col-span-1 flex flex-col items-center justify-center gap-2 bg-white dark:bg-slate-800 border-2 border-gray-100 dark:border-gray-700 text-gray-900 dark:text-white py-4 px-4 rounded-2xl shadow-lg active:scale-95 transition-transform duration-200 touch-manipulation cursor-pointer relative z-50"
                         style={{ WebkitTapHighlightColor: 'transparent' }}
                       >
                         <Github size={24} />
