@@ -183,15 +183,15 @@ const Projects: React.FC = () => {
           {projects.map((project, index) => (
             <div
               key={index}
-              className="project-card group relative z-10"
+              className="project-card group relative z-0"
             >
               <div className={`grid lg:grid-cols-12 gap-8 items-center ${index % 2 === 1 ? 'lg:grid-flow-col-dense' : ''
                 }`}>
 
                 {/* Project Visual */}
-                <div className={`lg:col-span-7 ${index % 2 === 1 ? 'lg:col-start-6' : ''} relative z-10`}>
+                <div className={`lg:col-span-7 ${index % 2 === 1 ? 'lg:col-start-6' : ''} relative z-0 lg:z-10 pointer-events-none lg:pointer-events-auto`}>
                   <div
-                    className="tilt-container"
+                    className="tilt-container pointer-events-none lg:pointer-events-auto"
                     onMouseEnter={(e) => {
                       const card = e.currentTarget;
                       gsap.to(card, {
@@ -307,7 +307,7 @@ const Projects: React.FC = () => {
                 </div>
 
                 {/* Project Details */}
-                <div className={`lg:col-span-5 space-y-6 ${index % 2 === 1 ? 'lg:col-start-1' : ''} relative z-20`}>
+                <div className={`lg:col-span-5 space-y-6 ${index % 2 === 1 ? 'lg:col-start-1' : ''} relative z-50 lg:z-20`}>
                   {/* Project meta */}
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-3">
@@ -389,29 +389,16 @@ const Projects: React.FC = () => {
                   </div>
 
                   {/* Mobile Action Buttons - Optimized for touch devices */}
-                  <div 
-                    className="flex flex-wrap gap-4 mt-8 lg:hidden"
-                    style={{ position: 'relative', zIndex: 9999, pointerEvents: 'auto' }}
-                  >
+                  <div className="flex flex-wrap gap-4 mt-8 lg:hidden">
                     {project.liveUrl !== "#" && (
                       <a
                         href={project.liveUrl}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex-1 min-w-[140px] flex flex-col items-center justify-center gap-2 bg-gradient-to-br from-cyan-500 to-blue-600 text-white py-5 px-6 rounded-2xl shadow-xl active:scale-95 transition-all duration-200"
-                        style={{
-                          WebkitTapHighlightColor: 'rgba(6, 182, 212, 0.3)',
-                          touchAction: 'manipulation',
-                          position: 'relative',
-                          zIndex: 10000,
-                          minHeight: '80px',
-                          cursor: 'pointer',
-                          pointerEvents: 'auto',
-                          display: 'flex'
-                        }}
                       >
                         <ExternalLink size={24} strokeWidth={2.5} />
-                        <span className="text-sm font-bold" style={{ pointerEvents: 'none' }}>Live Demo</span>
+                        <span className="text-sm font-bold">Live Demo</span>
                       </a>
                     )}
                     {project.githubUrl !== "#" && (
@@ -420,19 +407,9 @@ const Projects: React.FC = () => {
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex-1 min-w-[140px] flex flex-col items-center justify-center gap-2 bg-white dark:bg-slate-800 border-2 border-cyan-500 dark:border-cyan-600 text-gray-900 dark:text-white py-5 px-6 rounded-2xl shadow-xl active:scale-95 transition-all duration-200"
-                        style={{
-                          WebkitTapHighlightColor: 'rgba(6, 182, 212, 0.3)',
-                          touchAction: 'manipulation',
-                          position: 'relative',
-                          zIndex: 10000,
-                          minHeight: '80px',
-                          cursor: 'pointer',
-                          pointerEvents: 'auto',
-                          display: 'flex'
-                        }}
                       >
                         <Github size={24} strokeWidth={2.5} />
-                        <span className="text-sm font-bold" style={{ pointerEvents: 'none' }}>Source Code</span>
+                        <span className="text-sm font-bold">Source Code</span>
                       </a>
                     )}
                   </div>
