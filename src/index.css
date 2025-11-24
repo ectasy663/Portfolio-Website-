@@ -228,34 +228,43 @@
 @media (max-width: 1023px) {
   /* Ensure project cards don't interfere with button clicks */
   .project-card .tilt-container {
-    pointer-events: none;
+    pointer-events: none !important;
   }
   
   /* Allow clicks on content inside tilt-container */
   .project-card .tilt-container > * {
-    pointer-events: auto;
+    pointer-events: auto !important;
   }
   
-  /* Ensure mobile buttons are always clickable */
+  /* Ensure mobile buttons are always clickable with maximum priority */
   .project-card a[href] {
     pointer-events: auto !important;
-    touch-action: manipulation;
-    -webkit-tap-highlight-color: rgba(255, 255, 255, 0.1);
-    cursor: pointer;
-    position: relative;
-    z-index: 100;
+    touch-action: manipulation !important;
+    -webkit-tap-highlight-color: rgba(6, 182, 212, 0.3) !important;
+    cursor: pointer !important;
+    position: relative !important;
+    z-index: 10000 !important;
   }
   
   /* Improve touch target size for mobile buttons */
   .project-card a[href]:not(.hover\\:scale-105) {
-    min-height: 80px;
-    min-width: 140px;
+    min-height: 80px !important;
+    min-width: 140px !important;
   }
   
-  /* Prevent text selection on button tap */
-  .project-card a[href] span {
-    -webkit-user-select: none;
-    user-select: none;
+  /* Allow text and icons to be clickable as part of the link */
+  .project-card a[href] * {
+    pointer-events: none !important;
+  }
+  
+  /* Remove any overlays that might block clicks */
+  .project-card .absolute.inset-0 {
+    pointer-events: none !important;
+  }
+  
+  /* Ensure button containers don't block clicks */
+  .project-card > div {
+    isolation: isolate;
   }
 }
 

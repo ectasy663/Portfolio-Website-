@@ -283,10 +283,6 @@ const Projects: React.FC = () => {
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="flex items-center space-x-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-white px-6 py-3 rounded-xl hover:shadow-neon-blue/50 transition-all duration-300 hover:scale-105 active:scale-95"
-                                onClick={(e) => {
-                                  e.preventDefault();
-                                  window.open(project.liveUrl, '_blank', 'noopener,noreferrer');
-                                }}
                               >
                                 <ExternalLink size={18} />
                                 <span>Live Demo</span>
@@ -298,10 +294,6 @@ const Projects: React.FC = () => {
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="flex items-center space-x-2 bg-dark-800/80 backdrop-blur-sm border border-white/20 text-white px-6 py-3 rounded-xl hover:border-white/40 transition-all duration-300 hover:scale-105 active:scale-95"
-                                onClick={(e) => {
-                                  e.preventDefault();
-                                  window.open(project.githubUrl, '_blank', 'noopener,noreferrer');
-                                }}
                               >
                                 <Github size={18} />
                                 <span>Source</span>
@@ -399,7 +391,7 @@ const Projects: React.FC = () => {
                   {/* Mobile Action Buttons - Optimized for touch devices */}
                   <div 
                     className="flex flex-wrap gap-4 mt-8 lg:hidden"
-                    style={{ position: 'relative', zIndex: 9999 }}
+                    style={{ position: 'relative', zIndex: 9999, pointerEvents: 'auto' }}
                   >
                     {project.liveUrl !== "#" && (
                       <a
@@ -408,22 +400,18 @@ const Projects: React.FC = () => {
                         rel="noopener noreferrer"
                         className="flex-1 min-w-[140px] flex flex-col items-center justify-center gap-2 bg-gradient-to-br from-cyan-500 to-blue-600 text-white py-5 px-6 rounded-2xl shadow-xl active:scale-95 transition-all duration-200"
                         style={{
-                          WebkitTapHighlightColor: 'rgba(255, 255, 255, 0.1)',
+                          WebkitTapHighlightColor: 'rgba(6, 182, 212, 0.3)',
                           touchAction: 'manipulation',
-                          userSelect: 'none',
-                          WebkitUserSelect: 'none',
                           position: 'relative',
                           zIndex: 10000,
                           minHeight: '80px',
-                          cursor: 'pointer'
-                        }}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          window.open(project.liveUrl, '_blank', 'noopener,noreferrer');
+                          cursor: 'pointer',
+                          pointerEvents: 'auto',
+                          display: 'flex'
                         }}
                       >
                         <ExternalLink size={24} strokeWidth={2.5} />
-                        <span className="text-sm font-bold">Live Demo</span>
+                        <span className="text-sm font-bold" style={{ pointerEvents: 'none' }}>Live Demo</span>
                       </a>
                     )}
                     {project.githubUrl !== "#" && (
@@ -433,22 +421,18 @@ const Projects: React.FC = () => {
                         rel="noopener noreferrer"
                         className="flex-1 min-w-[140px] flex flex-col items-center justify-center gap-2 bg-white dark:bg-slate-800 border-2 border-cyan-500 dark:border-cyan-600 text-gray-900 dark:text-white py-5 px-6 rounded-2xl shadow-xl active:scale-95 transition-all duration-200"
                         style={{
-                          WebkitTapHighlightColor: 'rgba(255, 255, 255, 0.1)',
+                          WebkitTapHighlightColor: 'rgba(6, 182, 212, 0.3)',
                           touchAction: 'manipulation',
-                          userSelect: 'none',
-                          WebkitUserSelect: 'none',
                           position: 'relative',
                           zIndex: 10000,
                           minHeight: '80px',
-                          cursor: 'pointer'
-                        }}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          window.open(project.githubUrl, '_blank', 'noopener,noreferrer');
+                          cursor: 'pointer',
+                          pointerEvents: 'auto',
+                          display: 'flex'
                         }}
                       >
                         <Github size={24} strokeWidth={2.5} />
-                        <span className="text-sm font-bold">Source Code</span>
+                        <span className="text-sm font-bold" style={{ pointerEvents: 'none' }}>Source Code</span>
                       </a>
                     )}
                   </div>
