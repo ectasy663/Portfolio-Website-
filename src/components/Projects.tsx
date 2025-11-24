@@ -387,33 +387,33 @@ const Projects: React.FC = () => {
                       <span className="text-sm">{project.stats.views}</span>
                     </div>
                   </div>
-
-                  {/* Mobile Action Buttons - Optimized for touch devices */}
-                  <div className="flex flex-wrap gap-4 mt-8 lg:hidden">
-                    {project.liveUrl !== "#" && (
-                      <a
-                        href={project.liveUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex-1 min-w-[140px] flex flex-col items-center justify-center gap-2 bg-gradient-to-br from-cyan-500 to-blue-600 text-white py-5 px-6 rounded-2xl shadow-xl active:scale-95 transition-all duration-200"
-                      >
-                        <ExternalLink size={24} strokeWidth={2.5} />
-                        <span className="text-sm font-bold">Live Demo</span>
-                      </a>
-                    )}
-                    {project.githubUrl !== "#" && (
-                      <a
-                        href={project.githubUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex-1 min-w-[140px] flex flex-col items-center justify-center gap-2 bg-white dark:bg-slate-800 border-2 border-cyan-500 dark:border-cyan-600 text-gray-900 dark:text-white py-5 px-6 rounded-2xl shadow-xl active:scale-95 transition-all duration-200"
-                      >
-                        <Github size={24} strokeWidth={2.5} />
-                        <span className="text-sm font-bold">Source Code</span>
-                      </a>
-                    )}
-                  </div>
                 </div>
+              </div>
+
+              {/* Mobile Action Buttons - MOVED OUTSIDE GRID */}
+              <div className="flex flex-wrap gap-4 mt-8 lg:hidden">
+                {project.liveUrl !== "#" && (
+                  <a
+                    href={project.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 min-w-[140px] flex flex-col items-center justify-center gap-2 bg-gradient-to-br from-cyan-500 to-blue-600 text-white py-5 px-6 rounded-2xl shadow-xl active:scale-95 transition-all duration-200"
+                  >
+                    <ExternalLink size={24} strokeWidth={2.5} />
+                    <span className="text-sm font-bold">Live Demo</span>
+                  </a>
+                )}
+                {project.githubUrl !== "#" && (
+                  <a
+                    href={project.githubUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 min-w-[140px] flex flex-col items-center justify-center gap-2 bg-white dark:bg-slate-800 border-2 border-cyan-500 dark:border-cyan-600 text-gray-900 dark:text-white py-5 px-6 rounded-2xl shadow-xl active:scale-95 transition-all duration-200"
+                  >
+                    <Github size={24} strokeWidth={2.5} />
+                    <span className="text-sm font-bold">Source Code</span>
+                  </a>
+                )}
               </div>
             </div>
           ))}

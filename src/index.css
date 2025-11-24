@@ -226,19 +226,9 @@
 
 /* Mobile button accessibility fixes - SIMPLE AND CLEAN */
 @media (max-width: 1023px) {
-  /* Disable pointer events on project visual to prevent blocking clicks */
-  .project-card > div > div:first-child {
+  /* Disable hover effects on project visuals for mobile */
+  .project-card .tilt-container {
     pointer-events: none !important;
-  }
-  
-  /* Enable pointer events on project details where buttons are */
-  .project-card > div > div:last-child {
-    pointer-events: auto !important;
-  }
-  
-  /* Ensure all links are clickable */
-  .project-card a[href] {
-    pointer-events: auto !important;
   }
 }
 
