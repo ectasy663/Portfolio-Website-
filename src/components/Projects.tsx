@@ -191,7 +191,7 @@ const Projects: React.FC = () => {
                 {/* Project Visual */}
                 <div className={`lg:col-span-7 ${index % 2 === 1 ? 'lg:col-start-6' : ''} relative z-10`}>
                   <div
-                    className="tilt-container pointer-events-none lg:pointer-events-auto"
+                    className="tilt-container"
                     onMouseEnter={(e) => {
                       const card = e.currentTarget;
                       gsap.to(card, {
@@ -307,7 +307,7 @@ const Projects: React.FC = () => {
                 </div>
 
                 {/* Project Details */}
-                <div className={`lg:col-span-5 space-y-6 ${index % 2 === 1 ? 'lg:col-start-1' : ''} relative z-20 pointer-events-auto`}>
+                <div className={`lg:col-span-5 space-y-6 ${index % 2 === 1 ? 'lg:col-start-1' : ''} relative z-20`}>
                   {/* Project meta */}
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-3">
@@ -388,19 +388,34 @@ const Projects: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* Mobile Action Buttons - Redesigned for better touch accessibility */}
+                  {/* Mobile Action Buttons - Optimized for touch devices */}
                   <div 
-                    className="grid grid-cols-2 gap-4 mt-8 lg:hidden relative z-50 pointer-events-auto"
+                    className="flex flex-wrap gap-4 mt-8 lg:hidden"
+                    style={{ position: 'relative', zIndex: 9999 }}
                   >
                     {project.liveUrl !== "#" && (
                       <a
                         href={project.liveUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="col-span-1 flex flex-col items-center justify-center gap-2 bg-gradient-to-br from-cyan-500 to-blue-600 text-white py-4 px-4 rounded-2xl shadow-lg active:scale-95 transition-transform duration-200 touch-manipulation cursor-pointer relative z-50"
-                        style={{ WebkitTapHighlightColor: 'transparent' }}
+                        className="flex-1 min-w-[140px] flex flex-col items-center justify-center gap-2 bg-gradient-to-br from-cyan-500 to-blue-600 text-white py-5 px-6 rounded-2xl shadow-xl active:scale-95 transition-all duration-200"
+                        style={{
+                          WebkitTapHighlightColor: 'rgba(255, 255, 255, 0.1)',
+                          touchAction: 'manipulation',
+                          userSelect: 'none',
+                          WebkitUserSelect: 'none',
+                          position: 'relative',
+                          zIndex: 10000,
+                          minHeight: '80px'
+                        }}
+                        onTouchStart={(e) => {
+                          e.currentTarget.style.transform = 'scale(0.95)';
+                        }}
+                        onTouchEnd={(e) => {
+                          e.currentTarget.style.transform = 'scale(1)';
+                        }}
                       >
-                        <ExternalLink size={24} />
+                        <ExternalLink size={24} strokeWidth={2.5} />
                         <span className="text-sm font-bold">Live Demo</span>
                       </a>
                     )}
@@ -409,10 +424,24 @@ const Projects: React.FC = () => {
                         href={project.githubUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="col-span-1 flex flex-col items-center justify-center gap-2 bg-white dark:bg-slate-800 border-2 border-gray-100 dark:border-gray-700 text-gray-900 dark:text-white py-4 px-4 rounded-2xl shadow-lg active:scale-95 transition-transform duration-200 touch-manipulation cursor-pointer relative z-50"
-                        style={{ WebkitTapHighlightColor: 'transparent' }}
+                        className="flex-1 min-w-[140px] flex flex-col items-center justify-center gap-2 bg-white dark:bg-slate-800 border-2 border-cyan-500 dark:border-cyan-600 text-gray-900 dark:text-white py-5 px-6 rounded-2xl shadow-xl active:scale-95 transition-all duration-200"
+                        style={{
+                          WebkitTapHighlightColor: 'rgba(255, 255, 255, 0.1)',
+                          touchAction: 'manipulation',
+                          userSelect: 'none',
+                          WebkitUserSelect: 'none',
+                          position: 'relative',
+                          zIndex: 10000,
+                          minHeight: '80px'
+                        }}
+                        onTouchStart={(e) => {
+                          e.currentTarget.style.transform = 'scale(0.95)';
+                        }}
+                        onTouchEnd={(e) => {
+                          e.currentTarget.style.transform = 'scale(1)';
+                        }}
                       >
-                        <Github size={24} />
+                        <Github size={24} strokeWidth={2.5} />
                         <span className="text-sm font-bold">Source Code</span>
                       </a>
                     )}

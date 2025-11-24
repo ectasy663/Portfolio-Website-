@@ -224,6 +224,41 @@
   }
 }
 
+/* Mobile button accessibility fixes */
+@media (max-width: 1023px) {
+  /* Ensure project cards don't interfere with button clicks */
+  .project-card .tilt-container {
+    pointer-events: none;
+  }
+  
+  /* Allow clicks on content inside tilt-container */
+  .project-card .tilt-container > * {
+    pointer-events: auto;
+  }
+  
+  /* Ensure mobile buttons are always clickable */
+  .project-card a[href] {
+    pointer-events: auto !important;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+    position: relative;
+    z-index: 100;
+  }
+  
+  /* Improve touch target size for mobile buttons */
+  .project-card a[href]:not(.hover\\:scale-105) {
+    min-height: 80px;
+    min-width: 140px;
+  }
+  
+  /* Prevent text selection on button tap */
+  .project-card a[href] span {
+    -webkit-user-select: none;
+    user-select: none;
+  }
+}
+
   /* Enhanced typography for headings */
   h1,
   .h1 {
